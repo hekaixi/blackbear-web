@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+	<!-- 配置自动扫描的包 -->
+	<context:component-scan base-package="com.blackbear" >
+		<!-- 在mvc中扫描的包,在spring中不进行再次扫描 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+		<!-- 下面两项配置的注释是为了aop及事务的正常运行 -->
+        <!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"></context:exclude-filter> -->
+        <!-- <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"></context:exclude-filter> -->
+	</context:component-scan>
+
+<!-- AOP配置 -->
+	<!-- 配置切面引用的类 -->
+	<bean id="logger" class="com.blackbear.aop.Logger"></bean>
+    <aop:config>
+	    <aop:pointcut expression="execution(public void com.blackbear.service.TestService.*(..))" id="aop"/>
+        <aop:aspect ref="logger" order="1">  
+            <aop:before method="beforeRun" pointcut-ref="aop"/>
+        </aop:aspect>
+    </aop:config>
+
+
+	<!-- 配置数据源属性 -->
+	<context:property-placeholder location="classpath*:*.properties"></context:property-placeholder>
+
+<!-- 配置datasource -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+<!-- 		<property name="driverClass" value="com.mysql.jdbc.Driver"></property> -->
+<!-- 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=true"></property> -->
+<!-- 		<property name="user" value="root"></property> -->
+<!-- 		<property name="password" value="root"></property> -->
+	</bean>
+	
+<!-- 添加Memcached策略 -->
+	<!-- <bean id="springContextHolder" class="com.blackbear.memcache.cache.remote.MemcachedServiceImpl"/> -->
+	<!-- <bean id="memcachedService" class="com.blackbear.memcache.cache.remote.MemcachedServiceImpl"/> -->
+
+	
+<!-- hibernate配置 -->
+	<!-- 配置sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 配置上数据源属性 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 配置实体扫描的包 -->
+		<property name="namingStrategy">
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy"></bean>
+		</property>
+		<!-- 实体扫描包 -->
+		<property name="packagesToScan" value="com.blackbear.entity">
+		</property>
+		<!-- hibernate常用属性配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- 数据库方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+				<!-- 是否显示生成的sql -->
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 是否对sql格式化 -->
+				<prop key="hibernate.format_sql">false</prop>
+				<!-- 根据需要自动创建数据库表 -->
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 配置hibernate事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+<!-- mybatis配置 -->	
+	<!-- mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源 MyBatis定义数据源,同意加载配置-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	</bean>
+
+	<!-- mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory basePackage:指定sql映射文件/接口所在的包（自动扫描）-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.blackbear.myBatisMapper"></property>
+		    <!-- tets:mybatis无法使用jdbc属性文件赋值方案 -->
+		    <!-- 因为MapperScannerConfigurer 先于properties文件处理，意思是没进行占位符的变量赋值就被使用了。去掉sqlSessionFactory这个属性 -->
+			<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
+	</bean>
+	
+	<!-- 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- 使用声明式事务 transaction-manager：引用上面定义的事务管理器 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+</beans>

@@ -1,0 +1,33 @@
+Spring+SpringMvc+Hibernate整合记录
+	
+	1.导入Spring+Hibernate相关jar包
+	
+	2.导入第三方需要依赖的包
+	
+	3.配置web.xml
+		3.1、配置Spring的ioc容器
+		3.2、配置mvc控制器  请求过滤器
+		
+	4.配置springmvc.xml
+		4.1、导入命名空间
+		4.2、配置扫描的包
+		4.3、配置视图解析器
+		4.4、配置静态资源
+		4.5、配置mvc注解驱动
+		
+	5.配置applicationContext.xml
+		5.1、导入命名空间
+		5.2、配置扫描的包
+		5.3、配置数据源
+		5.4、配置dataSource
+		5.5、整合hibernate
+			1).配置sessionFactory
+			2).配置事务管理器
+	
+	6.环境测试
+		6.1、建立测试包
+		6.2、建立测试类(junit)
+		6.3、数据源测试
+		6.4、sessionfactory测试
+		6.5、hibernate测试
+		
