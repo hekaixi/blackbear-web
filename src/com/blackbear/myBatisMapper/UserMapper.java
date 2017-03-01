@@ -1,5 +1,6 @@
 package com.blackbear.myBatisMapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.blackbear.entity.UserBean;
@@ -10,4 +11,5 @@ public interface UserMapper {
 	boolean delete(int id);
 	UserBean findById(int id);
 	List<UserBean> findAll();
+	boolean updateByMap(HashMap<String,Object> map);
 }

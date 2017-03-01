@@ -32,6 +32,7 @@
 	    <aop:pointcut expression="execution(public void com.blackbear.service.TestService.*(..))" id="aop"/>
         <aop:aspect ref="logger" order="1">  
             <aop:before method="beforeRun" pointcut-ref="aop"/>
+            <aop:after  method="afterRun" pointcut-ref="aop"/>
         </aop:aspect>
     </aop:config>
 
@@ -99,7 +100,7 @@
 	<!-- mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory basePackage:指定sql映射文件/接口所在的包（自动扫描）-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.blackbear.myBatisMapper"></property>
-		    <!-- tets:mybatis无法使用jdbc属性文件赋值方案 -->
+		    <!-- mybatis无法使用jdbc属性文件赋值方案 -->
 		    <!-- 因为MapperScannerConfigurer 先于properties文件处理，意思是没进行占位符的变量赋值就被使用了。去掉sqlSessionFactory这个属性 -->
 			<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
 	</bean>

@@ -1,5 +1,7 @@
 package com.blackbear.web;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -28,10 +30,19 @@ public class TestController {
 	}
 	
 	@RequestMapping("test2")
-	public String testMytatis(){
+	public String testMytatisAddFun(){
 		System.out.println("开始测试...");
 //		service.testMemcache();
-		service.testMybatis();
+		service.testMybatisAddFun();
+		System.out.println("测试完成...");
+		return "test/test";
+	}
+	
+	@RequestMapping("test4")
+	public String testMytatisUpdateFun(){
+		System.out.println("开始测试...");
+//		service.testMemcache();
+		service.testMybatisUpdateFun();
 		System.out.println("测试完成...");
 		return "test/test";
 	}

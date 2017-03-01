@@ -1,5 +1,7 @@
 package com.blackbear.service;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class TestService {
 		System.out.println("进入业务层方法...");
 	}
 	
-	public void testMybatis(){
+	public void testMybatisAddFun (){
 		System.out.println("mybatis 添加测试...");
 		UserBean user = new UserBean(23, "jiuqiyuliang");
 		userMapper.save(user);
@@ -41,5 +43,15 @@ public class TestService {
 		p.setUrl("33333");
 //		dao.saveOrUpdate(p);
 		dao.save(p);
+	}
+
+	public void testMybatisUpdateFun() {
+		System.out.println("mybatis map修改测试...");
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("name", "hekx");
+		map.put("age", 25);
+		map.put("id", 5);
+		userMapper.updateByMap(map);
+		System.out.println("mybatis 测试结束");
 	}
 }

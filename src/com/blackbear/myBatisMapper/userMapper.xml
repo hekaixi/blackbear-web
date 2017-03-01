@@ -3,9 +3,9 @@
 <!-- 
 	namespace：必须与对应的接口全类名一致
 	id:必须与对应接口的某个对应的方法名一致
-	
  -->
-<mapper namespace="com.hekx.myBatisMapper.UserMapper">
+ 
+<mapper namespace="com.blackbear.myBatisMapper.UserMapper">
 	<insert id="save" parameterType="User">
 		insert into t_user(name,age) values(#{name},#{age})
 	</insert>
@@ -26,5 +26,9 @@
 	<select id="findAll" resultType="User">
 		select id id,name name,age age from t_user
 	</select>
+	
+	<update id="updateByMap" parameterType="java.util.HashMap">
+		update t_user set name=#{name},age=#{age} where id=#{id}
+	</update>
 	
 </mapper>
