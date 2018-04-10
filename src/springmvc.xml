@@ -25,9 +25,10 @@
     </bean>
 
     <!-- 配置静态资源 -->
-    <!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+    <!-- 将无法mapping到Controller的path交给default servlet handler处理 name:web.xml中配置的severlet名称 -->
 <!--     <mvc:default-servlet-handler default-servlet-name="default"/> -->
-<!-- 	<mvc:view-controller path="/" view-name="test/test" /> -->
+	<!-- 配置默认视图页面  -->
+	<mvc:view-controller path="/" view-name="test/test" />
 	
     <!-- 加载mvc注解驱动 -->
     <mvc:annotation-driven />
