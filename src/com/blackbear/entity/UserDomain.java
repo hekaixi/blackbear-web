@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name="T_USER")
 public class UserDomain {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String name;
 	private int age;

@@ -26,8 +26,9 @@
 
     <!-- 配置静态资源 -->
     <!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
-    <mvc:default-servlet-handler />
-
+<!--     <mvc:default-servlet-handler default-servlet-name="default"/> -->
+<!-- 	<mvc:view-controller path="/" view-name="test/test" /> -->
+	
     <!-- 加载mvc注解驱动 -->
     <mvc:annotation-driven />
 

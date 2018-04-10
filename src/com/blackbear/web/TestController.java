@@ -1,7 +1,5 @@
 package com.blackbear.web;
 
-import java.util.HashMap;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;

@@ -24,10 +24,10 @@
         <!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"></context:exclude-filter> -->
         <!-- <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"></context:exclude-filter> -->
 	</context:component-scan>
-
+	
 <!-- AOP配置 -->
 	<!-- 配置切面引用的类 -->
-	<bean id="logger" class="com.blackbear.aop.Logger"></bean>
+	<bean id="logger" class="com.blackbear.aop.Logger" scope="singleton" ></bean>
     <aop:config>
 	    <aop:pointcut expression="execution(public void com.blackbear.service.TestService.*(..))" id="aop"/>
         <aop:aspect ref="logger" order="1">  
@@ -73,13 +73,13 @@
 		<property name="hibernateProperties">
 			<props>
 				<!-- 数据库方言 -->
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5InnoDBDialect</prop>
 				<!-- 是否显示生成的sql -->
 				<prop key="hibernate.show_sql">true</prop>
 				<!-- 是否对sql格式化 -->
 				<prop key="hibernate.format_sql">false</prop>
 				<!-- 根据需要自动创建数据库表 -->
-				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
 	</bean>

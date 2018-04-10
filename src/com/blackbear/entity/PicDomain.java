@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name="pic_test")
 public class PicDomain {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
 	@Column(name="url")

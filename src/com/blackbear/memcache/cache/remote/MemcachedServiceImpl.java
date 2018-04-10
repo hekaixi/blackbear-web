@@ -13,24 +13,12 @@
  */
 package com.blackbear.memcache.cache.remote;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Service;
 
 import com.danga.MemCached.MemCachedClient;
 
-/**
- * The class MemcachedServiceImpl.
- *
- * Description: memcached缓存service实现类
- *
- * @author: weiyuanhua
- * @since: 2015年11月21日 上午9:49:06 	
- * @version: $Revision$ $Date$ $LastChangedBy$
- *
- */
+
 //@Service("memcachedService")
 public class MemcachedServiceImpl implements MemcachedService {
 
@@ -63,11 +51,11 @@ public class MemcachedServiceImpl implements MemcachedService {
         return memCachedClient.get(key);
     }
 
-    public boolean deleteWithType(String key, Class clazz) {
+    public boolean deleteWithType(String key, Class<?> clazz) {
         return memCachedClient.delete(getKeyWithType(key, clazz));
     }
 
-    public Object getWithType(String key, Class clazz) {
+    public Object getWithType(String key, Class<?> clazz) {
         return memCachedClient.get(getKeyWithType(key, clazz));
     }
 
@@ -75,18 +63,18 @@ public class MemcachedServiceImpl implements MemcachedService {
         memCachedClient.set(getKeyWithType(key, object.getClass()), object);
     }
 
-    public void setWithType(String key, Object object, Class clazz) {
+    public void setWithType(String key, Object object, Class<?> clazz) {
         if (object != null)
             memCachedClient.set(getKeyWithType(key, clazz), object);
         else memCachedClient.delete(getKeyWithType(key, clazz));
     }
 
-    protected String getKeyWithType(String key, Class clazz) {
+    protected String getKeyWithType(String key, Class<?> clazz) {
         return clazz.getSimpleName() + "-" + key;
     }
 
     @Override
-    public Object[] getWithType(String[] keys, Class clazz) {
+    public Object[] getWithType(String[] keys, Class<?> clazz) {
         for (int i = 0; i < keys.length; i++) {
             keys[i] = getKeyWithType(keys[i], clazz);
         }
@@ -97,7 +85,7 @@ public class MemcachedServiceImpl implements MemcachedService {
     }
 
     @Override
-    public void setWithType(String[] keys, Class clazz, Object[] objects) {
+    public void setWithType(String[] keys, Class<?> clazz, Object[] objects) {
         for (int i = 0; i < keys.length; i++) {
             memCachedClient.set(getKeyWithType(keys[i], clazz), objects[i]);
         }

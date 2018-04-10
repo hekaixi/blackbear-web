@@ -31,15 +31,15 @@ public interface MemcachedService {
 
 	public Object get(String key);
 
-	public boolean deleteWithType(String key, Class clazz);
+	public boolean deleteWithType(String key, Class<?> clazz);
 
 	public void setWithType(String key, Object object);
 
-	public void setWithType(String key, Object object, Class clazz);
+	public void setWithType(String key, Object object, Class<?> clazz);
 
-	public Object getWithType(String key, Class clazz);
+	public Object getWithType(String key, Class<?> clazz);
 
-	public Object[] getWithType(String keys[], Class clazz);
+	public Object[] getWithType(String keys[], Class<?> clazz);
 
-	public void setWithType(String keys[], Class clazz, Object objects[]);
+	public void setWithType(String keys[], Class<?> clazz, Object objects[]);
 }

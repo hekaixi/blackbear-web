@@ -63,7 +63,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-test-4.3.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-4.3.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web-4.3.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.1.RELEASE.jar" sourcepath="/var/folders/xm/mjznk1h1017cs6_2gwnb52f80000gn/T/.org.sf.feeling.decompiler1523330284340/source/spring-webmvc-4.3.1.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-portlet-4.3.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-4.3.1.RELEASE.jar"/>
 	<classpathentry kind="output" path="build/classes"/>

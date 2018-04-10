@@ -26,10 +26,9 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-
+    
     <!-- 配置请求编码方式,放在所有过滤器最前面 -->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
