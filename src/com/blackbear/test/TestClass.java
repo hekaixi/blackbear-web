@@ -10,8 +10,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.Test;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 import com.blackbear.entity.UserDomain;
 
@@ -26,6 +28,8 @@ public class TestClass {
 	
 	@Test
 	public void dataSource() throws SQLException{
+		XmlBeanFactory factory = new XmlBeanFactory (new ClassPathResource("Beans.xml")); 
+		
 		context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		
 		DataSource data = context.getBean(DataSource.class);

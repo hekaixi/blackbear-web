@@ -25,6 +25,8 @@
     </bean>
 
     <!-- 配置静态资源 -->
+    <mvc:resources mapping = "/source/**" location = "/WEB-INF/source/" />
+    
     <!-- 将无法mapping到Controller的path交给default servlet handler处理 name:web.xml中配置的severlet名称 -->
 <!--     <mvc:default-servlet-handler default-servlet-name="default"/> -->
 	<!-- 配置默认视图页面  -->

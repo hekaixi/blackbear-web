@@ -105,6 +105,16 @@
 			<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
 	</bean>
 	
+	<!-- 异常处理 -->
+	<bean class = "org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+      <property name = "exceptionMappings">
+         <props>
+            <prop key = "com.blackbear.exception.SpringException">ExceptionPage</prop>
+         </props>
+      </property>
+      <property name = "defaultErrorView" value = "error"/>
+   </bean>
+	
 	<!-- 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源 -->
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
