@@ -30,6 +30,14 @@ public class TestController {
 		System.out.println("测试完成...");
 		return "test/welcome";
 	}
+	
+	@RequestMapping("testListener")
+	public String testListener() {
+		System.out.println("开始测试...");
+		service.testListener();
+		System.out.println("测试完成...");
+		return "test/welcome";
+	}
 
 	@RequestMapping("test2")
 	public String testMytatisAddFun() {

@@ -4,17 +4,22 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blackbear.entity.PicDomain;
 import com.blackbear.entity.UserBean;
 import com.blackbear.hibernate.dao.BaseDao;
+import com.blackbear.listener.TestEventPublisher;
 import com.blackbear.myBatisMapper.UserMapper;
 
 @Service
 public class TestService {
 //	@Resource MemCachedClient memCache;
+	
+	@Autowired
+	TestEventPublisher tep;
 	
 	@Resource BaseDao dao;
 	
@@ -53,5 +58,11 @@ public class TestService {
 		map.put("id", 5);
 		userMapper.updateByMap(map);
 		System.out.println("mybatis 测试结束");
+	}
+
+	public void testListener() {
+		System.out.println("准备事件发布。。。");
+		tep.publish();
+		System.out.println("事件发布完成");
 	}
 }

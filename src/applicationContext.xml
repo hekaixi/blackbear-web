@@ -105,6 +105,14 @@
 			<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
 	</bean>
 	
+	<!-- 系统事件注册 -->
+	<bean id = "cStartEventHandler" class = "com.blackbear.listener.CStartEventHandler"/>
+	<bean id = "cStopEventHandler"  class = "com.blackbear.listener.CStopEventHandler" />
+	<bean id = "rHandlerEventHandler"  class = "com.blackbear.listener.RHandledEventHandler" />
+	<!-- 自定义事件注册 -->
+	<bean id = "testEventHandler" class = "com.blackbear.listener.TestEventHandler"/>
+	<bean id = "testEventPublisher" class = "com.blackbear.listener.TestEventPublisher"/>
+	
 	<!-- 异常处理 -->
 	<bean class = "org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
       <property name = "exceptionMappings">
